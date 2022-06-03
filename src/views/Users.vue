@@ -16,42 +16,19 @@
 </template>
 
 <script>
-import axios from "axios";
-import { ref } from "vue";
+import useUsers from "../hooks/useUsers";
 export default {
   setup() {
-    const users = ref([]);
-    const isLoading = ref(false);
-    const currentPage = ref(1);
-    const errorMessage = ref("");
-
-    const getUsers = async (page = 1) => {
-      if (page <= 0) page = 1;
-      isLoading.value = true;
-
-      const { data } = await axios.get(
-        `https://reqres.in/api/users?page=${page}`
-      );
-      users.value = data.data;
-
-      if (data.data.length > 0) {
-        users.value = data.data;
-        currentPage.value = page;
-         errorMessage.value = "";
-      } else if (currentPage.value > 0) {
-        errorMessage.value = "No hay más usuarios ";
-      } 
-      isLoading.value = false;
-    };
-    getUsers();
-
+    const { isloading, errorMessage, users, prevPage, nextPage, currentPage } =
+      useUsers();
     return {
       currentPage,
       errorMessage,
-      isLoading,
+      isloading,
+      nextPage,
+      prevPage,
       users,
-      nextPage: () => getUsers(currentPage.value + 1),
-      prevPage: () => getUsers(currentPage.value - 1),
+      // ...useUsers(),//Desesctrurar pero pasaria algo similar con los mixins y no es muy conveneniente
     };
   },
 };
