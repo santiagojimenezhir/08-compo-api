@@ -42,6 +42,24 @@ const routes = [{
                 "../views/Pokemon.vue"
             ),
     },
+    {
+        path: "/todo",
+        name: "todo",
+        component: () =>
+            import (
+                /* webpackChunkName: "todo" */
+                "../views/Todo.vue"
+            ),
+    },
+    {
+        path: "/slots",
+        name: "slots",
+        component: () =>
+            import (
+                /* webpackChunkName: "CustomSlots" */
+                "../views/CustomSlots.vue"
+            ),
+    },
 ];
 
 const router = createRouter({
