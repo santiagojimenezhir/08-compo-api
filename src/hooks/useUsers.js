@@ -16,6 +16,7 @@ const useUsers = () => {
         );
         users.value = data.data;
 
+
         if (data.data.length > 0) {
             users.value = data.data;
             currentPage.value = page;
